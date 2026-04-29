@@ -2,12 +2,15 @@ import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 export type AlertVariant = 'info' | 'success' | 'warning' | 'danger';
+export type AlertSize = 'sm' | 'md' | 'lg';
 
 @customElement('arvea-alert')
 export class ArvealAlert extends LitElement {
   @property({ type: String }) variant: AlertVariant = 'info';
   @property({ type: String }) override title = '';
   @property({ type: Boolean, reflect: true }) dismissible = false;
+  @property({ type: String, reflect: true }) size: AlertSize = 'md';
+
 
   static override styles = css`
     :host {
@@ -69,6 +72,19 @@ export class ArvealAlert extends LitElement {
       background-color: var(--arvea-color-danger-50);
       border-color: var(--arvea-color-danger-500);
       color: var(--arvea-color-danger-700);
+    }
+    /* Sizes */
+      :host([size='sm']) .alert {
+        padding: var(--arvea-space-2);
+        font-size: var(--arvea-font-size-xs);
+      }
+      :host([size='md']) .alert {
+        padding: var(--arvea-space-4);
+        font-size: var(--arvea-font-size-sm);
+      }
+      :host([size='lg']) .alert {
+        padding: var(--arvea-space-6);
+        font-size: var(--arvea-font-size-base);
     }
   `;
 
