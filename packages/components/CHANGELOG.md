@@ -1,5 +1,11 @@
 # @arvea-ui/kit
 
+## 0.4.0
+
+### Minor Changes
+
+- d17376d: minor bump from branch `feature/recent-work`
+
 ## 0.3.1
 
 ### Patch Changes
