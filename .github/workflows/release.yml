@@ -24,11 +24,6 @@ jobs:
 
       - run: npm ci
 
-      - name: Authenticate with npm
-        run: echo "//registry.npmjs.org/:_authToken=${                                                                    }" >> ~/.npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Version, Build and Publish
         run: |
           # Check for pending changesets (ignore README.md)
