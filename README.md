@@ -17,20 +17,52 @@ npm install @arvea-ui/kit lit
 
 ## Usage
 
-### Next.js (App Router)
+### Next.js (App Router) — Web Components directly
 
 ```tsx
-// app/layout.tsx or any client component
-import('@arvea-ui/kit')
+// app/layout.tsx
+import '@arvea-ui/kit/tokens.css'
 ```
 
 ```tsx
-// app/page.tsx
+// app/components/MyComponent.tsx
 'use client'
+import '@arvea-ui/kit'
 
-export default function Page() {
+export default function MyComponent() {
   return (
     <arvea-button variant="primary">Submit</arvea-button>
+  )
+}
+```
+
+### Next.js (App Router) — React Wrappers (recommended)
+
+Use the typed React wrappers powered by `@lit/react` — no `ref`, no `useEffect`, full type safety:
+
+```tsx
+'use client'
+import { Button, Alert, Input } from '@arvea-ui/kit'
+import { ArveaTable } from '@arvea-ui/kit'
+
+export default function MyComponent() {
+  return (
+    <div>
+      <ArveaTable
+        columns={[
+          { key: 'name', label: 'Name' },
+          { key: 'role', label: 'Role' },
+          { key: 'status', label: 'Status' },
+        ]}
+        data={[
+          { name: 'Mootez', role: 'Admin', status: 'Active' },
+          { name: 'Sarra', role: 'Editor', status: 'Inactive' },
+        ]}
+      />
+      <Alert variant="success">Changes saved successfully.</Alert>
+      <Button variant="primary" onArvealClick={() => console.log('clicked')}>Submit</Button>
+      <Input label="Email" type="email" placeholder="you@arvea.com" />
+    </div>
   )
 }
 ```
@@ -40,6 +72,7 @@ export default function Page() {
 ```ts
 // main.ts or app.config.ts
 import '@arvea-ui/kit'
+import '@arvea-ui/kit/tokens.css'
 ```
 
 ```ts
@@ -59,11 +92,13 @@ export class AppComponent {}
 ### Plain HTML
 
 ```html
+<link rel="stylesheet" href="node_modules/@arvea-ui/kit/tokens.css" />
 <script type="module">
   import '@arvea-ui/kit'
 </script>
 
 <arvea-button variant="primary">Submit</arvea-button>
+<arvea-alert variant="success">Done!</arvea-alert>
 ```
 
 ---
@@ -86,111 +121,135 @@ Or in CSS:
 
 ## Components
 
-### `<arvea-button>`
+### `<arvea-button>` / `<Button>`
 
 ```html
 <arvea-button variant="primary">Primary</arvea-button>
 <arvea-button variant="secondary">Secondary</arvea-button>
+<arvea-button variant="ghost">Ghost</arvea-button>
 <arvea-button variant="danger">Delete</arvea-button>
 <arvea-button disabled>Disabled</arvea-button>
+<arvea-button loading>Loading...</arvea-button>
 ```
 
-| Attribute  | Type                                  | Default     |
-|------------|---------------------------------------|-------------|
-| `variant`  | `primary` \| `secondary` \| `danger`  | `primary`   |
-| `disabled` | `boolean`                             | `false`     |
+| Attribute    | Type                                           | Default     |
+|--------------|------------------------------------------------|-------------|
+| `variant`    | `primary` \| `secondary` \| `ghost` \| `danger` | `primary`   |
+| `size`       | `sm` \| `md` \| `lg`                           | `md`        |
+| `disabled`   | `boolean`                                      | `false`     |
+| `loading`    | `boolean`                                      | `false`     |
+| `full-width` | `boolean`                                      | `false`     |
+| `type`       | `button` \| `submit` \| `reset`                | `button`    |
+
+**Events:** `arvea-click`
 
 ---
 
-### `<arvea-input>`
+### `<arvea-input>` / `<Input>`
 
 ```html
 <arvea-input label="Email" type="email" placeholder="you@arvea.com"></arvea-input>
 <arvea-input label="Password" type="password" required></arvea-input>
+<arvea-input label="Username" error="Already taken"></arvea-input>
+<arvea-input label="Bio" hint="Max 200 characters"></arvea-input>
 ```
 
-| Attribute     | Type      | Default  |
-|---------------|-----------|----------|
-| `label`       | `string`  | —        |
-| `type`        | `string`  | `text`   |
-| `placeholder` | `string`  | —        |
-| `required`    | `boolean` | `false`  |
-| `disabled`    | `boolean` | `false`  |
+| Attribute     | Type                                                      | Default  |
+|---------------|-----------------------------------------------------------|----------|
+| `label`       | `string`                                                  | —        |
+| `type`        | `text` \| `email` \| `password` \| `number` \| `search`  | `text`   |
+| `placeholder` | `string`                                                  | —        |
+| `value`       | `string`                                                  | —        |
+| `required`    | `boolean`                                                 | `false`  |
+| `disabled`    | `boolean`                                                 | `false`  |
+| `error`       | `string`                                                  | —        |
+| `hint`        | `string`                                                  | —        |
+| `size`        | `sm` \| `md` \| `lg`                                     | `md`     |
+
+**Events:** `arvea-input`, `arvea-change`, `arvea-focus`, `arvea-blur`
 
 ---
 
-### `<arvea-alert>`
+### `<arvea-alert>` / `<Alert>`
 
 ```html
-<arvea-alert type="success">Changes saved successfully.</arvea-alert>
-<arvea-alert type="warning">Your session is about to expire.</arvea-alert>
-<arvea-alert type="error">Something went wrong.</arvea-alert>
-<arvea-alert type="info">A new version is available.</arvea-alert>
+<arvea-alert variant="success">Changes saved successfully.</arvea-alert>
+<arvea-alert variant="warning">Your session is about to expire.</arvea-alert>
+<arvea-alert variant="danger">Something went wrong.</arvea-alert>
+<arvea-alert variant="info">A new version is available.</arvea-alert>
+<arvea-alert variant="success" size="sm" dismissible>Compact dismissible alert.</arvea-alert>
 ```
 
-| Attribute | Type                                        | Default  |
-|-----------|---------------------------------------------|----------|
-| `type`    | `success` \| `warning` \| `error` \| `info` | `info`   |
+| Attribute     | Type                                          | Default  |
+|---------------|-----------------------------------------------|----------|
+| `variant`     | `success` \| `warning` \| `danger` \| `info`  | `info`   |
+| `size`        | `sm` \| `md` \| `lg`                          | `md`     |
+| `title`       | `string`                                      | —        |
+| `dismissible` | `boolean`                                     | `false`  |
+
+**Events:** `arvea-dismiss`
 
 ---
 
-### `<arvea-table>`
-
-```html
-<arvea-table
-  .columns=${columns}
-  .rows=${rows}
-></arvea-table>
-```
+### `<arvea-table>` / `<ArveaTable>`
 
 ```ts
+import { ArveaTable } from '@arvea-ui/kit'
+
 const columns = [
   { key: 'name', label: 'Name' },
   { key: 'role', label: 'Role' },
-  { key: 'status', label: 'Status' },
+  { key: 'status', label: 'Status', badge: { active: 'success', inactive: 'neutral' } },
 ]
 
-const rows = [
+const data = [
   { name: 'Mootez', role: 'Admin', status: 'Active' },
   { name: 'Sarra', role: 'Editor', status: 'Inactive' },
 ]
 ```
 
-| Property   | Type       | Default |
-|------------|------------|---------|
-| `columns`  | `Column[]` | `[]`    |
-| `rows`     | `Row[]`    | `[]`    |
+```tsx
+<ArveaTable columns={columns} data={data} />
+```
+
+| Property     | Type                              | Default    |
+|--------------|-----------------------------------|------------|
+| `columns`    | `ColumnDef[]`                     | `[]`       |
+| `data`       | `Record<string, unknown>[]`       | `[]`       |
+| `actions`    | `RowAction[]`                     | `[]`       |
+| `pageSize`   | `number`                          | `0` (off)  |
+| `responsive` | `scroll` \| `hide` \| `cards`    | `scroll`   |
+
+**Events:** `arvea-sort`, `arvea-page-change`
 
 ---
 
 ## Theming
 
-All components use **CSS Custom Properties** for theming. Override them in your global stylesheet to match Arvea's brand.
+All components use **CSS Custom Properties** for theming. Override them in your global stylesheet.
 
 ```css
 @import '@arvea-ui/kit/tokens.css';
 
 :root {
   /* Colors */
-  --arvea-color-primary: #your-brand-color;
-  --arvea-color-primary-hover: #your-brand-color-hover;
-  --arvea-color-danger: #e53e3e;
-  --arvea-color-success: #38a169;
-  --arvea-color-warning: #d69e2e;
-  --arvea-color-info: #3182ce;
+  --arvea-color-primary-600: #2563eb;
+  --arvea-color-primary-700: #1d4ed8;
+  --arvea-color-danger-500: #ef4444;
+  --arvea-color-success-500: #22c55e;
+  --arvea-color-warning-500: #f59e0b;
 
   /* Typography */
-  --arvea-font-family: 'Inter', sans-serif;
-  --arvea-font-size-base: 14px;
+  --arvea-font-family-base: 'Inter', sans-serif;
+  --arvea-font-size-base: 1rem;
 
-  /* Spacing & Shape */
-  --arvea-border-radius: 6px;
-  --arvea-spacing-sm: 8px;
-  --arvea-spacing-md: 16px;
+  /* Spacing */
+  --arvea-space-2: 0.5rem;
+  --arvea-space-4: 1rem;
 
-  /* Input */
-  --arvea-input-border-color: #cbd5e0;
-  --arvea-input-focus-color: var(--arvea-color-primary);
+  /* Shape */
+  --arvea-radius-md: 6px;
+  --arvea-radius-lg: 8px;
 }
 ```
 
@@ -219,17 +278,43 @@ This package lives inside the `arvea-ui-kit` monorepo.
 # Install dependencies (from repo root)
 npm install
 
-# Build the component package
-npm run build --workspace=packages/components
+# Build all packages
+npm run build
 
 # Start Storybook
 npm run storybook
 
 # Run Next.js demo
-npm run dev --workspace=apps/next-demo
+npm run dev:next
 
 # Run Angular demo
 npm run start --workspace=apps/angular-demo
+
+# Run tests
+npm run test
+```
+
+---
+
+## Release Process (Changesets)
+
+This package uses [Changesets](https://github.com/changesets/changesets) for versioning.
+
+```bash
+# 1. Describe your change
+npx changeset
+
+# 2. Apply version bump + update CHANGELOG
+npx changeset version
+
+# 3. Build
+npm run build
+
+# 4. Publish to npm
+cd packages/components && npm publish
+
+# 5. Push to GitHub
+git add . && git commit -m "chore: release" && git push origin master
 ```
 
 ---

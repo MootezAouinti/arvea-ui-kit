@@ -1,5 +1,12 @@
 # @arvea-ui/kit
 
+## 0.3.1
+
+### Patch Changes
+
+- updated readme file
+- updated readme
+
 ## 0.3.0
 
 ### Minor Changes
