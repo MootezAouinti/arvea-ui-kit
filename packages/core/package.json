@@ -1,0 +1,14 @@
+{
+  "name": "@arvea-ui/core",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    "./tokens.css": "./src/tokens.css",
+    ".": "./src/index.ts"
+  },
+  "files": ["src"],
+  "scripts": {
+    "build": "echo 'core has no build step — tokens are used directly from src'"
+  }
+}
+

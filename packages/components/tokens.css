@@ -1,0 +1,82 @@
+:root {
+  /* ── Color palette ── */
+  --arvea-color-primary-50:  #EEF2FF;
+  --arvea-color-primary-100: #E0E7FF;
+  --arvea-color-primary-500: #6366F1;
+  --arvea-color-primary-600: #4F46E5;
+  --arvea-color-primary-700: #4338CA;
+  --arvea-color-primary-900: #1E1B4B;
+
+  --arvea-color-neutral-0:   #FFFFFF;
+  --arvea-color-neutral-50:  #F8FAFC;
+  --arvea-color-neutral-100: #F1F5F9;
+  --arvea-color-neutral-200: #E2E8F0;
+  --arvea-color-neutral-300: #CBD5E1;
+  --arvea-color-neutral-500: #64748B;
+  --arvea-color-neutral-700: #334155;
+  --arvea-color-neutral-900: #0F172A;
+
+  --arvea-color-success-50:  #F0FDF4;
+  --arvea-color-success-500: #22C55E;
+  --arvea-color-success-700: #15803D;
+
+  --arvea-color-warning-50:  #FFFBEB;
+  --arvea-color-warning-500: #F59E0B;
+  --arvea-color-warning-700: #B45309;
+
+  --arvea-color-danger-50:   #FFF1F2;
+  --arvea-color-danger-500:  #F43F5E;
+  --arvea-color-danger-700:  #BE123C;
+
+  --arvea-color-info-50:     #EFF6FF;
+  --arvea-color-info-500:    #3B82F6;
+  --arvea-color-info-700:    #1D4ED8;
+
+  /* ── Typography ── */
+  --arvea-font-family-base:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --arvea-font-family-mono:  'JetBrains Mono', 'Fira Code', monospace;
+
+  --arvea-font-size-xs:   0.75rem;    /* 12px */
+  --arvea-font-size-sm:   0.875rem;   /* 14px */
+  --arvea-font-size-base: 1rem;       /* 16px */
+  --arvea-font-size-lg:   1.125rem;   /* 18px */
+  --arvea-font-size-xl:   1.25rem;    /* 20px */
+
+  --arvea-font-weight-normal:  400;
+  --arvea-font-weight-medium:  500;
+  --arvea-font-weight-semibold: 600;
+
+  --arvea-line-height-tight:  1.25;
+  --arvea-line-height-normal: 1.5;
+  --arvea-line-height-relaxed: 1.75;
+
+  /* ── Spacing ── */
+  --arvea-space-1: 0.25rem;   /* 4px */
+  --arvea-space-2: 0.5rem;    /* 8px */
+  --arvea-space-3: 0.75rem;   /* 12px */
+  --arvea-space-4: 1rem;      /* 16px */
+  --arvea-space-5: 1.25rem;   /* 20px */
+  --arvea-space-6: 1.5rem;    /* 24px */
+  --arvea-space-8: 2rem;      /* 32px */
+
+  /* ── Border radius ── */
+  --arvea-radius-sm: 0.25rem;  /* 4px */
+  --arvea-radius-md: 0.5rem;   /* 8px */
+  --arvea-radius-lg: 0.75rem;  /* 12px */
+  --arvea-radius-xl: 1rem;     /* 16px */
+  --arvea-radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --arvea-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --arvea-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --arvea-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+
+  /* ── Motion ── */
+  --arvea-duration-fast:   100ms;
+  --arvea-duration-normal: 200ms;
+  --arvea-duration-slow:   300ms;
+  --arvea-ease-default:    cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Focus ── */
+  --arvea-focus-ring: 0 0 0 3px rgb(99 102 241 / 0.4);
+}

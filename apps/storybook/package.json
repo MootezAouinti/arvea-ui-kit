@@ -1,0 +1,37 @@
+{
+  "name": "storybook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^5.1.2",
+    "@playwright/test": "^1.59.1",
+    "@storybook/addon-a11y": "^10.3.5",
+    "@storybook/addon-docs": "^10.3.5",
+    "@storybook/addon-vitest": "^10.3.5",
+    "@storybook/web-components-vite": "^10.3.5",
+    "@vitest/browser-playwright": "^4.1.4",
+    "@vitest/coverage-v8": "^4.1.4",
+    "eslint-plugin-storybook": "^10.3.5",
+    "lit": "^3.3.2",
+    "playwright": "^1.59.1",
+    "storybook": "^10.3.5",
+    "vitest": "^4.1.4"
+  },
+  "dependencies": {
+    "@arvea-ui/components": "^0.1.0"
+  }
+}
