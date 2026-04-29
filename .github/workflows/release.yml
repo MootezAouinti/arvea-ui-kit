@@ -25,12 +25,23 @@ jobs:
 
       - run: npm ci
 
-      - name: Create Version PR or Publish
+      # Write auth token directly into .npmrc so nested publish calls always find it
+      - name: Authenticate with npm
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Build dist/ before the action runs (publish step needs it)
+      - name: Build packages
+        run: npm run build
+
+      # MODE 1 — changesets exist  → bumps versions + opens "Version Packages" PR
+      # MODE 2 — no changesets left → runs `changeset publish` (publishes bumped version)
+      - name: Version or Publish
         uses: changesets/action@v1
         with:
-          # Opens a "Version Packages" PR that bumps versions and updates CHANGELOG.
-          # When that PR is merged, this job runs again and publishes to npm.
-          publish: npm run release
+          publish: changeset publish
           title: "chore: version packages"
           commit: "chore: version packages"
         env:
