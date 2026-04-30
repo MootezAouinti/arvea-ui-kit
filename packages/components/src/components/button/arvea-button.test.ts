@@ -4,6 +4,12 @@ import { ArvealButton } from './arvea-button';
 describe('ArvealButton', () => {
   let el: ArvealButton;
 
+  beforeAll(() => {
+    if (!customElements.get('arvea-button')) {
+      customElements.define('arvea-button', ArvealButton);
+    }
+  });
+
   beforeEach(async () => {
     el = document.createElement('arvea-button') as ArvealButton;
     document.body.appendChild(el);

@@ -4,6 +4,12 @@ import { ArvealInput } from './arvea-input';
 describe('ArvealInput', () => {
   let el: ArvealInput;
 
+  beforeAll(() => {
+    if (!customElements.get('arvea-input')) {
+      customElements.define('arvea-input', ArvealInput);
+    }
+  });
+
   beforeEach(async () => {
     el = document.createElement('arvea-input') as ArvealInput;
     document.body.appendChild(el);

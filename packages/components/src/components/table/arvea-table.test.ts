@@ -19,13 +19,21 @@ const DATA = [
 describe('ArvealTable', () => {
   let el: ArvealTable;
 
-  beforeEach(async () => {
-    el = document.createElement('arvea-table') as ArvealTable;
-    el.columns = COLUMNS;
-    el.data    = DATA;
-    document.body.appendChild(el);
-    await el.updateComplete;
+  beforeAll(async () => {
+    // Register element if not yet in this jsdom context
+    if (!customElements.get('arvea-table')) {
+      customElements.define('arvea-table', ArvealTable);
+    }
   });
+
+  beforeEach(async () => {
+  el = document.createElement('arvea-table') as ArvealTable;
+  document.body.appendChild(el);
+  el.columns = COLUMNS;
+  el.data = DATA;
+  await el.updateComplete;
+  await new Promise(r => setTimeout(r, 0)); // flush microtasks
+});
 
   afterEach(() => {
     document.body.removeChild(el);

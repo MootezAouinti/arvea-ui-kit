@@ -4,6 +4,12 @@ import { ArvealAlert } from './arvea-alert';
 describe('ArvealAlert', () => {
   let el: ArvealAlert;
 
+  beforeAll(() => {
+    if (!customElements.get('arvea-alert')) {
+      customElements.define('arvea-alert', ArvealAlert);
+    }
+  });
+
   beforeEach(async () => {
     el = document.createElement('arvea-alert') as ArvealAlert;
     document.body.appendChild(el);
