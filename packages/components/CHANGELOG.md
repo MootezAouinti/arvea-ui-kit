@@ -1,5 +1,11 @@
 # @arvea-ui/kit
 
+## 0.4.1
+
+### Patch Changes
+
+- aae83ed: patch bump from branch `fix/alert-size-export`
+
 ## 0.4.0
 
 ### Minor Changes
