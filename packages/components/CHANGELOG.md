@@ -1,5 +1,11 @@
 # @arvea-ui/kit
 
+## 0.4.6
+
+### Patch Changes
+
+- patch bump from branch `master`
+
 ## 0.4.5
 
 ### Patch Changes
