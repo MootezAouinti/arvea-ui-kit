@@ -1,14 +1,7 @@
-name: Auto Changeset
+name: Auto Changeset (disabled)
 
 on:
-  push:
-    branches:
-      - 'feat/**'
-      - 'feature/**'
-      - 'fix/**'
-      - 'bugfix/**'
-      - 'hotfix/**'
-      - 'release/**'
+  workflow_dispatch: # disabled — versioning now uses git tags in release.yml
 
 permissions:
   contents: write
