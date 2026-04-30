@@ -27,16 +27,20 @@ jobs:
 
       - name: Version, Build and Publish
         run: |
-          # Check for pending changesets (ignore README.md)
+          # If no changeset exists, auto-create one from the merge commit source branch
           CHANGESETS=$(ls .changeset/*.md 2>/dev/null | grep -v README.md || true)
 
           if [ -z "$CHANGESETS" ]; then
-            echo "No changesets found — nothing to publish."
-            exit 0
-          fi
+            MERGE_BRANCH=$(git log -1 --pretty=format:"%s" | sed -n "s/Merge branch '\([^']*\)'.*/\1/p")
 
-          echo "Changesets found:"
-          echo "$CHANGESETS"
+            if [ -n "$MERGE_BRANCH" ]; then
+              echo "No changeset found — auto-creating from merged branch: $MERGE_BRANCH"
+              node scripts/create-changeset.mjs "$MERGE_BRANCH"
+            else
+              echo "No changesets and no merge commit detected — nothing to publish."
+              exit 0
+            fi
+          fi
 
           # 1. Bump versions + update CHANGELOG based on changesets
           npx changeset version
