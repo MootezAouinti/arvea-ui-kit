@@ -11,7 +11,6 @@ export class ArvealAlert extends LitElement {
   @property({ type: Boolean, reflect: true }) dismissible = false;
   @property({ type: String, reflect: true }) size: AlertSize = 'md';
 
-
   static override styles = css`
     :host {
       display: block;
@@ -92,6 +91,7 @@ export class ArvealAlert extends LitElement {
     this.dispatchEvent(new CustomEvent('arvea-dismiss', { bubbles: true, composed: true }));
     this.hidden = true;
   }
+  
 
   private _getIcon(variant: AlertVariant): string {
     const icons: Record<AlertVariant, string> = {

@@ -348,6 +348,7 @@ export class ArvealTable extends LitElement {
       }
       return this.sortDir === 'desc' ? -cmp : cmp;
     });
+    
   }
 
   private get _totalPages(): number {
