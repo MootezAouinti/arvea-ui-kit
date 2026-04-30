@@ -21,9 +21,11 @@ const config = {
       },
     ],
   },
+
   transformIgnorePatterns: [
     'node_modules/(?!(lit|@lit|lit-html|lit-element|@lit-labs)/)',
   ],
+  
   testMatch: ['**/src/**/*.test.ts'],
   injectGlobals: true,
 };
