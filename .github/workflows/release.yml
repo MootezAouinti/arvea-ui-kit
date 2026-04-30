@@ -33,13 +33,29 @@ jobs:
           if [ -z "$CHANGESETS" ]; then
             MERGE_BRANCH=$(git log -1 --pretty=format:"%s" | sed -n "s/Merge branch '\([^']*\)'.*/\1/p")
 
-            if [ -n "$MERGE_BRANCH" ]; then
-              echo "No changeset found — auto-creating from merged branch: $MERGE_BRANCH"
-              node scripts/create-changeset.mjs "$MERGE_BRANCH"
-            else
+            if [ -z "$MERGE_BRANCH" ]; then
               echo "No changesets and no merge commit detected — nothing to publish."
               exit 0
             fi
+
+            # Determine bump type from branch prefix
+            if [[ "$MERGE_BRANCH" == release/* ]]; then
+              BUMP="major"
+            elif [[ "$MERGE_BRANCH" == feat/* || "$MERGE_BRANCH" == feature/* ]]; then
+              BUMP="minor"
+            else
+              BUMP="patch"
+            fi
+
+            PKG_NAME=$(node -p "require('./packages/components/package.json').name")
+            echo "No changeset found — creating $BUMP bump from merged branch: $MERGE_BRANCH"
+            {
+              echo "---"
+              echo "\"$PKG_NAME\": $BUMP"
+              echo "---"
+              echo ""
+              echo "$BUMP bump from branch \`$MERGE_BRANCH\`"
+            } > .changeset/auto-release.md
           fi
 
           # 1. Bump versions + update CHANGELOG based on changesets
