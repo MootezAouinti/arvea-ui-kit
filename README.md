@@ -335,3 +335,4 @@ This package follows [Semantic Versioning](https://semver.org/):
 
 This package is maintained by the Arvea engineering team.  
 For issues or contribution requests, open a ticket in the internal repository.# release pipeline test
+# breaking release test
