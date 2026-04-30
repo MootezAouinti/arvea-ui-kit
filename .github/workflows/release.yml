@@ -11,6 +11,14 @@ jobs:
   release:
     runs-on: ubuntu-latest
     environment: develop
+    # Only run on merge commits — not direct pushes or bot commits
+    if: |
+      github.event.head_commit.message != '' &&
+      !contains(github.event.head_commit.message, '[skip ci]') &&
+      (
+        startsWith(github.event.head_commit.message, 'Merge branch') ||
+        startsWith(github.event.head_commit.message, 'Merge pull request')
+      )
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,7 +35,6 @@ jobs:
 
       - name: Version, Build and Publish
         run: |
-          # If no changeset exists, auto-create one from the merge commit source branch
           CHANGESETS=$(ls .changeset/*.md 2>/dev/null | grep -v README.md || true)
 
           if [ -z "$CHANGESETS" ]; then
@@ -38,7 +45,6 @@ jobs:
               exit 0
             fi
 
-            # Determine bump type from branch prefix
             if [[ "$MERGE_BRANCH" == release/* ]]; then
               BUMP="major"
             elif [[ "$MERGE_BRANCH" == feat/* || "$MERGE_BRANCH" == feature/* ]]; then
@@ -58,17 +64,11 @@ jobs:
             } > .changeset/auto-release.md
           fi
 
-          # 1. Bump versions + update CHANGELOG based on changesets
           npx changeset version
-
-          # 2. Build dist/ with the new version
           npm run build
-
-          # 3. Publish to npm
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
           npm run release
 
-          # 4. Commit the version bumps and push back to master
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
