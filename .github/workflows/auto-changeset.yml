@@ -1,9 +1,14 @@
 name: Auto Changeset
 
 on:
-  pull_request:
-    types: [opened, reopened, synchronize]
-    branches: [master]
+  push:
+    branches:
+      - 'feat/**'
+      - 'feature/**'
+      - 'fix/**'
+      - 'bugfix/**'
+      - 'hotfix/**'
+      - 'release/**'
 
 permissions:
   contents: write
@@ -15,9 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          # Use a PAT so the pushed commit triggers downstream CI
           token: ${{ secrets.GITHUB_TOKEN }}
-          ref: ${{ github.head_ref }}
 
       - uses: actions/setup-node@v4
         with:
@@ -27,14 +30,12 @@ jobs:
       - run: npm ci
 
       - name: Create changeset from branch name
-        run: node scripts/create-changeset.mjs "${{ github.head_ref }}"
+        run: node scripts/create-changeset.mjs
 
-      - name: Commit changeset (if created)
+      - name: Commit and push changeset (if new)
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .changeset/
-          # Only commit if there is something staged
-          git diff --cached --quiet || \
-            git commit -m "chore: auto-changeset for \`${{ github.head_ref }}\`"
+          git diff --cached --quiet || git commit -m "chore: auto-changeset [skip ci]"
           git push
