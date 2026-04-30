@@ -1,6 +1,5 @@
-import type { Config } from 'jest';
-
-const config: Config = {
+/** @type {import('jest').Config} */
+const config = {
   preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'jsdom',
   extensionsToTreatAsEsm: ['.ts'],
@@ -29,4 +28,4 @@ const config: Config = {
   injectGlobals: true,
 };
 
-export default config;
+module.exports = config;
