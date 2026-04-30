@@ -1,5 +1,11 @@
 # @arvea-ui/kit
 
+## 1.0.0
+
+### Major Changes
+
+- major bump from branch `release/testing`
+
 ## 0.5.0
 
 ### Minor Changes
