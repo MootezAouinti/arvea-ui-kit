@@ -1,6 +1,6 @@
 {
   "name": "@arvea-ui/kit",
-  "version": "0.0.1",
+  "version": "2.0.1",
   "description": "Arvea UI Kit — framework-agnostic Web Components",
   "type": "module",
   "main": "./dist/index.cjs",
