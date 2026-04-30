@@ -1,5 +1,11 @@
 # @arvea-ui/kit
 
+## 0.5.0
+
+### Minor Changes
+
+- 6426834: minor bump from branch `feat/testing`
+
 ## 0.4.7
 
 ### Patch Changes
