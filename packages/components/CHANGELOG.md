@@ -1,5 +1,11 @@
 # @arvea-ui/kit
 
+## 2.0.1
+
+### Patch Changes
+
+- patch bump from branch `fix/test-config`
+
 ## 2.0.0
 
 ### Major Changes
