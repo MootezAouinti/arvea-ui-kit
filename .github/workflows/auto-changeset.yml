@@ -6,7 +6,6 @@ on:
 permissions:
   contents: write
   
-
 jobs:
   auto-changeset:
     runs-on: ubuntu-latest
